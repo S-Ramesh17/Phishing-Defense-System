@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadRecent();
 
   testBtn.addEventListener('click', () => {
-    chrome.tabs.create({ url: 'https://USERNAME.github.io/PhishGuard/index.html' });
+    chrome.tabs.create({ url: 'https://ramesh.s.github.io/PhishGuard/index.html' });
   });
   reportsBtn.addEventListener('click', () => {
     chrome.tabs.create({ url: 'https://USERNAME.github.io/PhishGuard/report.html' });
@@ -47,3 +47,19 @@ exportBtn.addEventListener('click', async ()=>{
   alert('Reports JSON copied to clipboard. Paste into PhishGuard report page.');
 });
 document.querySelector('.container').appendChild(exportBtn);
+// Add this inside your DOMContentLoaded handler (after loadRecent or similar)
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message && message.type === 'scan_result' && message.report) {
+    const r = message.report;
+    const statEl = document.getElementById('stat');
+    if (statEl) {
+      statEl.textContent = r.detected ? `Phishing suspected ⚠️ (score ${r.score})` : `Safe ✅ (score ${r.score})`;
+    }
+    // refresh recent list
+    (async function loadRecent(){ 
+      const data = await chrome.storage.sync.get({ phishshield_reports: [] });
+      const arr = (data.phishshield_reports || []).slice(0,5);
+      document.getElementById('recent').innerHTML = '<strong>Recent:</strong><br/>' + (arr.length ? arr.map(rr=>`${new Date(rr.timestamp).toLocaleString()}: ${rr.detected? 'PHISHING':'clean'} - ${rr.url}`).join('<br/>') : 'No reports yet');
+    })();
+  }
+});
