@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PhishShield</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <img src="../icons/icon128.png" alt="logo" class="logo" />
+    <h1>PhishShield</h1>
+    <p id="status">Status: <strong id="stat">Idle</strong></p>
+    <div class="buttons">
+      <button id="testBtn">Test Yourself</button>
+      <button id="reportsBtn">View Reports</button>
+      <button id="scanBtn">Scan Current Page</button>
+    </div>
+    <div id="recent"></div>
+    <small class="muted">Data stored in chrome.storage.sync (demo)</small>
+  </div>
+<script src="popup.js"></script>
+</body>
+</html>

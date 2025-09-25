@@ -1,0 +1,8 @@
+body{font-family:Inter, Arial, sans-serif;margin:0; padding:0; width:300px;}
+.container{padding:12px;}
+.logo{width:48px;height:48px;}
+h1{font-size:18px;margin:6px 0;}
+.buttons{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;}
+button{flex:1;padding:8px;border-radius:6px;border:0;background:#1a73e8;color:#fff;cursor:pointer;}
+#recent{margin-top:10px;font-size:13px;}
+.muted{color:#666}

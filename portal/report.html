@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Reports - PhishGuard</title><link rel="stylesheet" href="css/styles.css"/></head><body>
+<header class="hero"><div class="inner"><h1>Extension Reports</h1><nav><a href="index.html">Home</a></nav></div></header>
+<main class="content">
+  <p>This page shows reports logged by the PhishShield Chrome extension. Because extension storage isn't directly accessible from GitHub Pages, you can:</p>
+  <ol>
+    <li>Open the extension popup and click <em>Export Reports</em> (the extension will add a button to copy JSON to clipboard).</li>
+    <li>Paste the JSON into the box below and click <strong>Load Reports</strong>.</li>
+  </ol>
+  <textarea id="data" style="width:100%;height:180px;"></textarea><br/>
+  <button id="load">Load Reports</button>
+  <button id="exportPdf">Export to PDF</button>
+  <div id="table"></div>
+</main>
+<script src="js/pdf-generator.js"></script>
+<script src="js/main.js"></script>
+</body></html>
