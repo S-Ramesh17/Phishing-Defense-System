@@ -21,17 +21,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   scanBtn.addEventListener('click', async () => {
-    statEl.textContent = 'Scanning...';
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab && tab.id) {
-      chrome.tabs.sendMessage(tab.id, { type: 'manual_scan' }, (res) => {
-        statEl.textContent = 'Requested scan (see page overlay if flagged).';
+  statEl.textContent = 'Scanning...';
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  if (tab && tab.id) {
+    // Send message directly to background
+    chrome.runtime.sendMessage({ type: 'manual_tab_check' }, (res) => {
+      if (res?.report) {
+        const r = res.report;
+        statEl.textContent = r.detected ? `Phishing suspected ⚠️ (score ${r.score})` : `Safe ✅ (score ${r.score})`;
         loadRecent();
-      });
-    } else {
-      statEl.textContent = 'No active tab.';
-    }
-  });
+      } else {
+        statEl.textContent = 'Scan failed.';
+      }
+    });
+  } else {
+    statEl.textContent = 'No active tab.';
+  }
+});
 
 });
 
